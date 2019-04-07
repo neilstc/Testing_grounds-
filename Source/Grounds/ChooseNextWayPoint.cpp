@@ -19,6 +19,11 @@ EBTNodeResult::Type UChooseNextWayPoint :: ExecuteTask(UBehaviorTreeComponent& O
     auto BlackboardComp  = OwnerComp.GetBlackboardComponent();
     auto index = BlackboardComp->GetValueAsInt(indexKey.SelectedKeyName);
     BlackboardComp->SetValueAsObject(waypointKey.SelectedKeyName, PatrolPoints[index]);
+    
+    
+    //cycle next index
+    auto nextIndex = (index+1)%PatrolPoints.Num();
+    BlackboardComp->SetValueAsInt(indexKey.SelectedKeyName, nextIndex);
      return  EBTNodeResult::Succeeded;
     //TODO protect against empty patrol points;
 }
